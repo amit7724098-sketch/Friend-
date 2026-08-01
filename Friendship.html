@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Friendship Day! ✨</title>
+  
+  <!-- Google Fonts for Stylish Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Fredoka:wght@400;600&family=Great+Vibes&family=Poppins:wght@300;400;600&family=Sacramento&display=swap" rel="stylesheet">
+
+  <style>
+    /* Global & Premium Background Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(-45deg, #ff758c, #ff7eb3, #764ba2, #667eea);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      overflow: hidden;
+      color: #fff;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Animated Floating Background Elements */
+    .bg-shape {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(5px);
+      animation: float 8s infinite ease-in-out;
+      z-index: 1;
+    }
+    .shape1 { width: 120px; height: 120px; top: 10%; left: 10%; animation-delay: 0s; }
+    .shape2 { width: 180px; height: 180px; bottom: 10%; right: 10%; animation-delay: 2s; }
+    .shape3 { width: 80px; height: 80px; top: 70%; left: 15%; animation-delay: 4s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-30px) rotate(180deg); }
+    }
+
+    /* Slide Card Containers */
+    .container {
+      width: 90%;
+      max-width: 550px;
+      height: 650px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 25px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      padding: 40px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.8) translateY(50px);
+      transition: all 0.7s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1) translateY(0);
+    }
+
+    /* Button Styling */
+    .btn-group {
+      margin-top: 30px;
+      display: flex;
+      gap: 20px;
+      position: relative;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 12px 35px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .btn-yes {
+      background: #ff4757;
+      color: white;
+    }
+    .btn-yes:hover {
+      background: #ff6b81;
+      transform: scale(1.1);
+      box-shadow: 0 12px 20px rgba(255, 71, 87, 0.4);
+    }
+
+    .btn-no {
+      background: #ffffff;
+      color: #333;
+      position: absolute;
+      transition: top 0.2s ease, left 0.2s ease;
+    }
+
+    .btn-next {
+      background: linear-gradient(45deg, #f12711, #f5af19);
+      color: white;
+      margin-top: 25px;
+    }
+    .btn-next:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(245, 175, 25, 0.4);
+    }
+
+    /* Custom Stylish Typography per Slide */
+
+    /* Slide 1 */
+    .slide-1 h1 {
+      font-family: 'Fredoka', cursive;
+      font-size: 2.2rem;
+      color: #fff;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+      margin-bottom: 10px;
+    }
+    .slide-1 p { font-size: 1rem; color: #ffeaa7; }
+
+    /* Slide 2 */
+    .slide-2 h2 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.5rem;
+      color: #ffeaa7;
+      margin-bottom: 15px;
+    }
+    .slide-2 p {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    /* Slide 3 */
+    .slide-3 h2 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 3rem;
+      color: #ff7675;
+      margin-bottom: 20px;
+    }
+    .reasons-list {
+      list-style: none;
+      text-align: left;
+      width: 100%;
+    }
+    .reasons-list li {
+      background: rgba(255, 255, 255, 0.2);
+      margin: 10px 0;
+      padding: 10px 15px;
+      border-radius: 12px;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Slide 4 */
+    .slide-4 h2 {
+      font-family: 'Sacramento', cursive;
+      font-size: 3.8rem;
+      color: #fdcb6e;
+    }
+    .memory-box {
+      background: rgba(0, 0, 0, 0.2);
+      border-left: 4px solid #fdcb6e;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 15px;
+      font-style: italic;
+    }
+
+    /* Slide 5 */
+    .slide-5 h2 {
+      font-family: 'Fredoka', cursive;
+      font-size: 2.5rem;
+      color: #74b9ff;
+    }
+    .promise-card {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 12px;
+      border-radius: 15px;
+      margin: 8px 0;
+      width: 100%;
+      font-size: 0.95rem;
+    }
+
+    /* Slide 6 */
+    .slide-6 h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 4rem;
+      color: #ff7675;
+      text-shadow: 0 0 10px rgba(255, 118, 117, 0.6);
+    }
+    .slide-6 p {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.8rem;
+      color: #ffeaa7;
+      margin-top: 10px;
+    }
+    .heart-icon {
+      font-size: 4rem;
+      animation: heartbeat 1.2s infinite;
+      margin: 15px 0;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Background Shapes -->
+  <div class="bg-shape shape1"></div>
+  <div class="bg-shape shape2"></div>
+  <div class="bg-shape shape3"></div>
+
+  <div class="container">
+
+    <!-- PAGE 1: The Interactive Question -->
+    <div class="slide slide-1 active" id="slide1">
+      <div style="font-size: 3.5rem; margin-bottom: 10px;">🌸</div>
+      <h1>Hey Perfect Person! ✨</h1>
+      <p>I have a very important question for you...</p>
+      <h2 style="font-family: 'Dancing Script', cursive; font-size: 2.3rem; margin: 25px 0; color: #ffeaa7;">
+        Will you be my Best Friend forever? 🥺
+      </h2>
+      <div class="btn-group" id="btnGroup">
+        <button class="btn btn-yes" onclick="nextSlide(2)">YES! 💖</button>
+        <button class="btn btn-no" id="noBtn" onmouseover="moveNoButton()" onclick="moveNoButton()">No 😜</button>
+      </div>
+    </div>
+
+    <!-- PAGE 2: Welcome & Appreciation -->
+    <div class="slide slide-2" id="slide2">
+      <div style="font-size: 3rem;">✨</div>
+      <h2>I knew you'd say Yes!</h2>
+      <p>
+        Having you in my life is like having a constant ray of sunshine. 
+        You bring so much joy, laughter, and brightness into my world that I couldn't imagine it without you! 🌟
+      </p>
+      <button class="btn btn-next" onclick="nextSlide(3)">Keep Reading ➡️</button>
+    </div>
+
+    <!-- PAGE 3: Why You're Special -->
+    <div class="slide slide-3" id="slide3">
+      <h2>Why You Are The Best! 👑</h2>
+      <ul class="reasons-list">
+        <li><span>💎</span> You have the kindest heart ever.</li>
+        <li><span>😂</span> Your smile and laugh are completely contagious.</li>
+        <li><span>👂</span> You are always there to listen when I need it most.</li>
+        <li><span>🌈</span> You make even normal days feel super special.</li>
+      </ul>
+      <button class="btn btn-next" onclick="nextSlide(4)">Next Surprise ➡️</button>
+    </div>
+
+    <!-- PAGE 4: A Special Note / Memory -->
+    <div class="slide slide-4" id="slide4">
+      <div style="font-size: 3rem;">📖</div>
+      <h2>A Little Note For You</h2>
+      <div class="memory-box">
+        "True friendship isn't about being inseparable, it's about being separated and nothing changes. You are a treasure I always cherish!" 💫
+      </div>
+      <p style="margin-top: 15px; font-size: 0.95rem;">
+        Thank you for being so authentic, sweet, and wonderfully original. Never change!
+      </p>
+      <button class="btn btn-next" onclick="nextSlide(5)">My Promises ➡️</button>
+    </div>
+
+    <!-- PAGE 5: Promises -->
+    <div class="slide slide-5" id="slide5">
+      <h2>My Promises To You 🤝</h2>
+      <div class="promise-card">🛡️ Always have your back, no matter what.</div>
+      <div class="promise-card">🍕 Share good food and even better jokes.</div>
+      <div class="promise-card">🤍 Listen to your long rants without judgment.</div>
+      <div class="promise-card">🎉 Celebrate every little achievement of yours!</div>
+      <button class="btn btn-next" onclick="nextSlide(6)">Final Message ➡️</button>
+    </div>
+
+    <!-- PAGE 6: Final Grand Wish -->
+    <div class="slide slide-6" id="slide6">
+      <div class="heart-icon">💖</div>
+      <h1>Happy Friendship Day!</h1>
+      <p>To the best friend anyone could ever ask for! ✨</p>
+      <p style="font-size: 1.1rem; font-family: 'Poppins', sans-serif; margin-top: 20px; color: #fff;">
+        Thank you for existing and being YOU! 🥰
+      </p>
+    </div>
+
+  </div>
+
+  <script>
+    // Dodge mechanics for the "No" button
+    function moveNoButton() {
+      const noBtn = document.getElementById('noBtn');
+      const container = document.getElementById('slide1');
+
+      // Get dimensions of slide container
+      const containerRect = container.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+
+      // Calculate random available positions within slide bounds
+      const maxX = containerRect.width - btnRect.width - 40;
+      const maxY = containerRect.height - btnRect.height - 40;
+
+      const randomX = Math.floor(Math.random() * maxX) - (containerRect.width / 2 - btnRect.width);
+      const randomY = Math.floor(Math.random() * maxY) - (containerRect.height / 2 - btnRect.height);
+
+      noBtn.style.left = `${randomX}px`;
+      noBtn.style.top = `${randomY}px`;
+    }
+
+    // Function to handle switching slides with smooth animations
+    function nextSlide(slideNumber) {
+      // Find current active slide and remove active class
+      const currentSlide = document.querySelector('.slide.active');
+      if (currentSlide) {
+        currentSlide.classList.remove('active');
+      }
+
+      // Add active class to target slide
+      const nextTargetSlide = document.getElementById(`slide${slideNumber}`);
+      if (nextTargetSlide) {
+        nextTargetSlide.classList.add('active');
+      }
+    }
+  </script>
+</body>
+</html>
