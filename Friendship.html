@@ -63,7 +63,7 @@
       height: 650px;
       position: relative;
       z-index: 10;
-      perspective: 1200px; /* Enhanced 3D depth */
+      perspective: 1200px;
     }
 
     /* Slide Base Styling */
@@ -86,7 +86,7 @@
       align-items: center;
       text-align: center;
       
-      /* Default hidden state: Prepared on the RIGHT with 3D rotation */
+      /* Default hidden state: Prepared on RIGHT with 3D rotation */
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
@@ -94,7 +94,7 @@
       transition: all 1.8s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
-    /* Active Slide State: Right se 3D effect ke saath enter hoga */
+    /* Active Slide State */
     .slide.active {
       opacity: 1;
       visibility: visible;
@@ -102,7 +102,7 @@
       transform: translateX(0) rotateY(0deg) scale(1);
     }
 
-    /* Exit Slide State: Left side se slowly exit hoga */
+    /* Exit Slide State */
     .slide.exit {
       opacity: 0;
       visibility: hidden;
@@ -111,7 +111,7 @@
       transition: all 1.8s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
-    /* YOUR CUSTOM INNER TEXT & ELEMENT ANIMATIONS */
+    /* INNER TEXT & ELEMENT ANIMATIONS */
     .slide h1,
     .slide h2,
     .slide p,
@@ -135,7 +135,7 @@
       transform: translateY(0);
     }
 
-    /* Staggered transition delays for premium feel */
+    /* Staggered transition delays */
     .slide.active h1 { transition-delay: .3s; }
     .slide.active h2 { transition-delay: .6s; }
     .slide.active p { transition-delay: .9s; }
@@ -145,14 +145,15 @@
     .slide.active button, 
     .slide.active .btn-group { transition-delay: 1.5s; }
 
-    /* Button Styling */
+    /* Button Area Layout */
     .btn-group {
-      margin-top: 30px;
+      margin-top: 35px;
       display: flex;
-      gap: 20px;
+      justify-content: space-around;
+      align-items: center;
       position: relative;
       width: 100%;
-      justify-content: center;
+      height: 60px; /* Allocated space to keep buttons well-separated */
     }
 
     .btn {
@@ -180,7 +181,8 @@
       background: #ffffff;
       color: #333;
       position: absolute;
-      transition: top 0.25s ease, left 0.25s ease;
+      right: 20px; /* Distinct initial spacing away from Yes button */
+      transition: top 0.25s ease, left 0.25s ease, right 0.25s ease;
     }
 
     .btn-next {
@@ -385,6 +387,7 @@
       const randomX = Math.floor(Math.random() * maxX) - (containerRect.width / 2 - btnRect.width);
       const randomY = Math.floor(Math.random() * maxY) - (containerRect.height / 2 - btnRect.height);
 
+      noBtn.style.right = 'auto'; // Reset right offset property
       noBtn.style.left = `${randomX}px`;
       noBtn.style.top = `${randomY}px`;
     }
@@ -395,17 +398,15 @@
       const nextTargetSlide = document.getElementById(`slide${slideNumber}`);
 
       if (currentSlide) {
-        // Exit to left side
         currentSlide.classList.remove('active');
         currentSlide.classList.add('exit');
 
         setTimeout(() => {
           currentSlide.classList.remove('exit');
-        }, 1800); // Exact 1.8s duration
+        }, 1800);
       }
 
       if (nextTargetSlide) {
-        // Enter from right side
         setTimeout(() => {
           nextTargetSlide.classList.add('active');
         }, 100);
