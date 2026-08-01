@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy Friendship Day! ✨</title>
   
-  <!-- Google Fonts for Stylish Typography -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Fredoka:wght@400;600&family=Great+Vibes&family=Poppins:wght@300;400;600&family=Sacramento&display=swap" rel="stylesheet">
@@ -56,15 +56,17 @@
       50% { transform: translateY(-30px) rotate(180deg); }
     }
 
-    /* Slide Card Containers */
+    /* Container */
     .container {
       width: 90%;
       max-width: 550px;
       height: 650px;
       position: relative;
       z-index: 10;
+      perspective: 1000px; /* Gives 3D depth to transitions */
     }
 
+    /* Slide Styling */
     .slide {
       position: absolute;
       top: 0;
@@ -72,28 +74,60 @@
       width: 100%;
       height: 100%;
       background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.35);
       border-radius: 25px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
       padding: 40px 30px;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
+      
+      /* Hidden state by default */
       opacity: 0;
       visibility: hidden;
-      transform: scale(0.8) translateY(50px);
-      transition: all 0.7s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      pointer-events: none;
+      transform: scale(0.85) translateY(60px) rotateX(-10deg);
+      transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+                  transform 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+                  visibility 1.2s;
     }
 
+    /* Slow Active Entrance Animation */
     .slide.active {
       opacity: 1;
       visibility: visible;
-      transform: scale(1) translateY(0);
+      pointer-events: auto;
+      transform: scale(1) translateY(0) rotateX(0deg);
     }
+
+    /* Slow Exit Animation */
+    .slide.exit {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: scale(1.1) translateY(-50px) rotateX(10deg);
+    }
+
+    /* Inner Text Elements Delay Animation for Luxury Feel */
+    .slide * {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s ease-out;
+    }
+
+    .slide.active * {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Staggered text appearance delays */
+    .slide.active h1, .slide.active h2 { transition-delay: 0.3s; }
+    .slide.active p, .slide.active .reasons-list, .slide.active .memory-box, .slide.active .promise-card { transition-delay: 0.5s; }
+    .slide.active .btn-group, .slide.active .btn-next { transition-delay: 0.7s; }
 
     /* Button Styling */
     .btn-group {
@@ -113,7 +147,7 @@
       border-radius: 50px;
       cursor: pointer;
       box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-      transition: all 0.3s ease;
+      transition: all 0.4s ease;
     }
 
     .btn-yes {
@@ -130,7 +164,7 @@
       background: #ffffff;
       color: #333;
       position: absolute;
-      transition: top 0.2s ease, left 0.2s ease;
+      transition: top 0.25s ease, left 0.25s ease;
     }
 
     .btn-next {
@@ -139,13 +173,11 @@
       margin-top: 25px;
     }
     .btn-next:hover {
-      transform: translateY(-3px);
+      transform: translateY(-3px) scale(1.03);
       box-shadow: 0 10px 20px rgba(245, 175, 25, 0.4);
     }
 
-    /* Custom Stylish Typography per Slide */
-
-    /* Slide 1 */
+    /* Slide Typography */
     .slide-1 h1 {
       font-family: 'Fredoka', cursive;
       font-size: 2.2rem;
@@ -155,7 +187,6 @@
     }
     .slide-1 p { font-size: 1rem; color: #ffeaa7; }
 
-    /* Slide 2 */
     .slide-2 h2 {
       font-family: 'Great Vibes', cursive;
       font-size: 3.5rem;
@@ -168,7 +199,6 @@
       line-height: 1.6;
     }
 
-    /* Slide 3 */
     .slide-3 h2 {
       font-family: 'Dancing Script', cursive;
       font-size: 3rem;
@@ -191,7 +221,6 @@
       gap: 10px;
     }
 
-    /* Slide 4 */
     .slide-4 h2 {
       font-family: 'Sacramento', cursive;
       font-size: 3.8rem;
@@ -206,7 +235,6 @@
       font-style: italic;
     }
 
-    /* Slide 5 */
     .slide-5 h2 {
       font-family: 'Fredoka', cursive;
       font-size: 2.5rem;
@@ -221,7 +249,6 @@
       font-size: 0.95rem;
     }
 
-    /* Slide 6 */
     .slide-6 h1 {
       font-family: 'Great Vibes', cursive;
       font-size: 4rem;
@@ -236,26 +263,26 @@
     }
     .heart-icon {
       font-size: 4rem;
-      animation: heartbeat 1.2s infinite;
+      animation: heartbeat 1.5s infinite ease-in-out;
       margin: 15px 0;
     }
 
     @keyframes heartbeat {
       0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.3); }
+      50% { transform: scale(1.25); }
     }
   </style>
 </head>
 <body>
 
-  <!-- Floating Background Shapes -->
+  <!-- Background Animated Floating Circles -->
   <div class="bg-shape shape1"></div>
   <div class="bg-shape shape2"></div>
   <div class="bg-shape shape3"></div>
 
   <div class="container">
 
-    <!-- PAGE 1: The Interactive Question -->
+    <!-- PAGE 1: Question -->
     <div class="slide slide-1 active" id="slide1">
       <div style="font-size: 3.5rem; margin-bottom: 10px;">🌸</div>
       <h1>Hey Perfect Person! ✨</h1>
@@ -269,7 +296,7 @@
       </div>
     </div>
 
-    <!-- PAGE 2: Welcome & Appreciation -->
+    <!-- PAGE 2: Welcome -->
     <div class="slide slide-2" id="slide2">
       <div style="font-size: 3rem;">✨</div>
       <h2>I knew you'd say Yes!</h2>
@@ -280,7 +307,7 @@
       <button class="btn btn-next" onclick="nextSlide(3)">Keep Reading ➡️</button>
     </div>
 
-    <!-- PAGE 3: Why You're Special -->
+    <!-- PAGE 3: Special List -->
     <div class="slide slide-3" id="slide3">
       <h2>Why You Are The Best! 👑</h2>
       <ul class="reasons-list">
@@ -292,7 +319,7 @@
       <button class="btn btn-next" onclick="nextSlide(4)">Next Surprise ➡️</button>
     </div>
 
-    <!-- PAGE 4: A Special Note / Memory -->
+    <!-- PAGE 4: Special Note -->
     <div class="slide slide-4" id="slide4">
       <div style="font-size: 3rem;">📖</div>
       <h2>A Little Note For You</h2>
@@ -315,7 +342,7 @@
       <button class="btn btn-next" onclick="nextSlide(6)">Final Message ➡️</button>
     </div>
 
-    <!-- PAGE 6: Final Grand Wish -->
+    <!-- PAGE 6: Final Wish -->
     <div class="slide slide-6" id="slide6">
       <div class="heart-icon">💖</div>
       <h1>Happy Friendship Day!</h1>
@@ -333,11 +360,9 @@
       const noBtn = document.getElementById('noBtn');
       const container = document.getElementById('slide1');
 
-      // Get dimensions of slide container
       const containerRect = container.getBoundingClientRect();
       const btnRect = noBtn.getBoundingClientRect();
 
-      // Calculate random available positions within slide bounds
       const maxX = containerRect.width - btnRect.width - 40;
       const maxY = containerRect.height - btnRect.height - 40;
 
@@ -348,18 +373,26 @@
       noBtn.style.top = `${randomY}px`;
     }
 
-    // Function to handle switching slides with smooth animations
+    // Ultra-smooth and slow slide transition controller
     function nextSlide(slideNumber) {
-      // Find current active slide and remove active class
       const currentSlide = document.querySelector('.slide.active');
+      const nextTargetSlide = document.getElementById(`slide${slideNumber}`);
+
       if (currentSlide) {
+        // Trigger exit animation slowly
         currentSlide.classList.remove('active');
+        currentSlide.classList.add('exit');
+
+        setTimeout(() => {
+          currentSlide.classList.remove('exit');
+        }, 1200); // Matches transition duration
       }
 
-      // Add active class to target slide
-      const nextTargetSlide = document.getElementById(`slide${slideNumber}`);
       if (nextTargetSlide) {
-        nextTargetSlide.classList.add('active');
+        // Bring in the next slide smoothly after a tiny delay
+        setTimeout(() => {
+          nextTargetSlide.classList.add('active');
+        }, 200);
       }
     }
   </script>
