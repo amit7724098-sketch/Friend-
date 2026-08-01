@@ -56,17 +56,17 @@
       50% { transform: translateY(-30px) rotate(180deg); }
     }
 
-    /* Container */
+    /* Container Perspective for 3D Effects */
     .container {
       width: 90%;
       max-width: 550px;
       height: 650px;
       position: relative;
       z-index: 10;
-      perspective: 1000px; /* Gives 3D depth to transitions */
+      perspective: 1200px; /* Enhanced 3D depth */
     }
 
-    /* Slide Styling */
+    /* Slide Base Styling */
     .slide {
       position: absolute;
       top: 0;
@@ -86,48 +86,64 @@
       align-items: center;
       text-align: center;
       
-      /* Hidden state by default */
+      /* Default hidden state: Prepared on the RIGHT with 3D rotation */
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
-      transform: scale(0.85) translateY(60px) rotateX(-10deg);
-      transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1),
-                  transform 1.2s cubic-bezier(0.4, 0, 0.2, 1),
-                  visibility 1.2s;
+      transform: translateX(100%) rotateY(-35deg) scale(0.85);
+      transition: all 1.8s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
-    /* Slow Active Entrance Animation */
+    /* Active Slide State: Right se 3D effect ke saath enter hoga */
     .slide.active {
       opacity: 1;
       visibility: visible;
       pointer-events: auto;
-      transform: scale(1) translateY(0) rotateX(0deg);
+      transform: translateX(0) rotateY(0deg) scale(1);
     }
 
-    /* Slow Exit Animation */
+    /* Exit Slide State: Left side se slowly exit hoga */
     .slide.exit {
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
-      transform: scale(1.1) translateY(-50px) rotateX(10deg);
+      transform: translateX(-100%) rotateY(35deg) scale(0.85);
+      transition: all 1.8s cubic-bezier(0.25, 1, 0.5, 1);
     }
 
-    /* Inner Text Elements Delay Animation for Luxury Feel */
-    .slide * {
+    /* YOUR CUSTOM INNER TEXT & ELEMENT ANIMATIONS */
+    .slide h1,
+    .slide h2,
+    .slide p,
+    .slide li,
+    .slide button,
+    .slide .promise-card,
+    .slide .memory-box {
       opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.8s ease-out;
+      transform: translateY(40px);
+      transition: all 1.2s ease;
     }
 
-    .slide.active * {
+    .slide.active h1,
+    .slide.active h2,
+    .slide.active p,
+    .slide.active li,
+    .slide.active button,
+    .slide.active .promise-card,
+    .slide.active .memory-box {
       opacity: 1;
       transform: translateY(0);
     }
 
-    /* Staggered text appearance delays */
-    .slide.active h1, .slide.active h2 { transition-delay: 0.3s; }
-    .slide.active p, .slide.active .reasons-list, .slide.active .memory-box, .slide.active .promise-card { transition-delay: 0.5s; }
-    .slide.active .btn-group, .slide.active .btn-next { transition-delay: 0.7s; }
+    /* Staggered transition delays for premium feel */
+    .slide.active h1 { transition-delay: .3s; }
+    .slide.active h2 { transition-delay: .6s; }
+    .slide.active p { transition-delay: .9s; }
+    .slide.active li, 
+    .slide.active .promise-card, 
+    .slide.active .memory-box { transition-delay: 1.2s; }
+    .slide.active button, 
+    .slide.active .btn-group { transition-delay: 1.5s; }
 
     /* Button Styling */
     .btn-group {
@@ -147,7 +163,7 @@
       border-radius: 50px;
       cursor: pointer;
       box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-      transition: all 0.4s ease;
+      transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .btn-yes {
@@ -156,7 +172,7 @@
     }
     .btn-yes:hover {
       background: #ff6b81;
-      transform: scale(1.1);
+      transform: scale(1.1) !important;
       box-shadow: 0 12px 20px rgba(255, 71, 87, 0.4);
     }
 
@@ -173,11 +189,11 @@
       margin-top: 25px;
     }
     .btn-next:hover {
-      transform: translateY(-3px) scale(1.03);
+      transform: translateY(-3px) scale(1.03) !important;
       box-shadow: 0 10px 20px rgba(245, 175, 25, 0.4);
     }
 
-    /* Slide Typography */
+    /* Custom Typography per Slide */
     .slide-1 h1 {
       font-family: 'Fredoka', cursive;
       font-size: 2.2rem;
@@ -275,14 +291,14 @@
 </head>
 <body>
 
-  <!-- Background Animated Floating Circles -->
+  <!-- Background Animated Floating Shapes -->
   <div class="bg-shape shape1"></div>
   <div class="bg-shape shape2"></div>
   <div class="bg-shape shape3"></div>
 
   <div class="container">
 
-    <!-- PAGE 1: Question -->
+    <!-- PAGE 1 -->
     <div class="slide slide-1 active" id="slide1">
       <div style="font-size: 3.5rem; margin-bottom: 10px;">🌸</div>
       <h1>Hey Perfect Person! ✨</h1>
@@ -296,7 +312,7 @@
       </div>
     </div>
 
-    <!-- PAGE 2: Welcome -->
+    <!-- PAGE 2 -->
     <div class="slide slide-2" id="slide2">
       <div style="font-size: 3rem;">✨</div>
       <h2>I knew you'd say Yes!</h2>
@@ -307,7 +323,7 @@
       <button class="btn btn-next" onclick="nextSlide(3)">Keep Reading ➡️</button>
     </div>
 
-    <!-- PAGE 3: Special List -->
+    <!-- PAGE 3 -->
     <div class="slide slide-3" id="slide3">
       <h2>Why You Are The Best! 👑</h2>
       <ul class="reasons-list">
@@ -319,7 +335,7 @@
       <button class="btn btn-next" onclick="nextSlide(4)">Next Surprise ➡️</button>
     </div>
 
-    <!-- PAGE 4: Special Note -->
+    <!-- PAGE 4 -->
     <div class="slide slide-4" id="slide4">
       <div style="font-size: 3rem;">📖</div>
       <h2>A Little Note For You</h2>
@@ -332,7 +348,7 @@
       <button class="btn btn-next" onclick="nextSlide(5)">My Promises ➡️</button>
     </div>
 
-    <!-- PAGE 5: Promises -->
+    <!-- PAGE 5 -->
     <div class="slide slide-5" id="slide5">
       <h2>My Promises To You 🤝</h2>
       <div class="promise-card">🛡️ Always have your back, no matter what.</div>
@@ -342,7 +358,7 @@
       <button class="btn btn-next" onclick="nextSlide(6)">Final Message ➡️</button>
     </div>
 
-    <!-- PAGE 6: Final Wish -->
+    <!-- PAGE 6 -->
     <div class="slide slide-6" id="slide6">
       <div class="heart-icon">💖</div>
       <h1>Happy Friendship Day!</h1>
@@ -355,7 +371,7 @@
   </div>
 
   <script>
-    // Dodge mechanics for the "No" button
+    // Dodge mechanics for "No" button
     function moveNoButton() {
       const noBtn = document.getElementById('noBtn');
       const container = document.getElementById('slide1');
@@ -373,26 +389,26 @@
       noBtn.style.top = `${randomY}px`;
     }
 
-    // Ultra-smooth and slow slide transition controller
+    // Slide transition controller matching 1.8s timing
     function nextSlide(slideNumber) {
       const currentSlide = document.querySelector('.slide.active');
       const nextTargetSlide = document.getElementById(`slide${slideNumber}`);
 
       if (currentSlide) {
-        // Trigger exit animation slowly
+        // Exit to left side
         currentSlide.classList.remove('active');
         currentSlide.classList.add('exit');
 
         setTimeout(() => {
           currentSlide.classList.remove('exit');
-        }, 1200); // Matches transition duration
+        }, 1800); // Exact 1.8s duration
       }
 
       if (nextTargetSlide) {
-        // Bring in the next slide smoothly after a tiny delay
+        // Enter from right side
         setTimeout(() => {
           nextTargetSlide.classList.add('active');
-        }, 200);
+        }, 100);
       }
     }
   </script>
